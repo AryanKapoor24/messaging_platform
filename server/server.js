@@ -8,7 +8,7 @@ import { message } from 'telegraf/filters';
 dotenv.config();
 
 const app = express();
-const bot = new Telegraf('7094725314:AAHF_GF-hisXhDbrpYEre9DW0gOYXp9ZJA4');
+const bot = new Telegraf('7094725314:AAHF_GF-hisXhDbrpYEre9DW0gOYXp9ZJA4');  //telegram bot token
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
