@@ -1,152 +1,685 @@
+/* Base Styles */
+:root {
+    --whatsapp-primary: #25D366;
+    --whatsapp-secondary: #128C7E;
+    --whatsapp-light: #e6f8f1;
+    --instagram-primary: #833AB4;
+    --instagram-secondary: #FD1D1D;
+    --instagram-tertiary: #FCB045;
+    --instagram-light: #fdf3f3;
+    --telegram-primary: #0088cc;
+    --telegram-secondary: #2AABEE;
+    --telegram-light: #e3f2fd;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s, color 0.3s;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
+/* App Container */
 #app {
-    width: 100%;
-    height: 100%;
+    width: 1500px;
+    height: 800px;
     display: flex;
     flex-direction: column;
     background: var(--background-color);
     color: var(--text-color);
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Header */
 header {
-    padding: 20px;
+    padding: 15px 25px;
     background: var(--header-background-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    position: relative;
 }
 
-header h1 {
+#logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#main-title {
     margin: 0;
+    font-size: 24px;
+    font-weight: 900;
     color: var(--header-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Rubik', sans-serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#theme-toggle {
-    padding: 10px;
+#platform-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+#platform-indicator i {
+    font-size: 18px;
+}
+
+/* Chat Selector */
+#chat-selector {
+    display: flex;
+    gap: 15px;
+    margin: 0 20px;
+}
+
+.chat-option {
+    padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.chat-option .option-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.chat-option .option-text {
+    transition: opacity 0.3s;
+}
+
+/* WhatsApp Option */
+.chat-option[data-chat="whatsapp"] {
+    background: var(--whatsapp-primary);
+}
+
+/* Instagram Option */
+.chat-option[data-chat="instagram"] {
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+}
+
+/* Telegram Option */
+.chat-option[data-chat="telegram"] {
+    background: var(--telegram-primary);
+}
+
+.chat-option.active {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+}
+
+.chat-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Theme Toggle */
+#theme-toggle {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50px;
     background: var(--button-background-color);
     color: var(--button-text-color);
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-main {
-    flex-grow: 1;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
+    align-items: center;
+    gap: 5px;
 }
 
+#theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Chat Container */
 #chat-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     overflow: hidden;
+    position: relative;
 }
 
+/* WhatsApp Theme */
+.whatsapp-theme {
+    background: linear-gradient(135deg, var(--whatsapp-light) 0%, #d5f3ea 50%, #c1e9df 100%);
+}
+
+.whatsapp-theme #input-container {
+    background: var(--whatsapp-light);
+    border-top: 1px solid #c1e9df;
+}
+
+.whatsapp-theme .message.sent {
+    background: var(--whatsapp-primary);
+    color: white;
+    border-radius: 15px 15px 0 15px;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
+    position: relative;
+    max-width: 65%;
+    margin-left: auto;
+    margin-right: 10px;
+    animation: whatsappSent 0.3s ease-out;
+}
+
+.whatsapp-theme .message.received {
+    background: white;
+    color: #333;
+    border-radius: 15px 15px 15px 0;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 65%;
+    margin-left: 10px;
+    margin-right: auto;
+    animation: whatsappReceived 0.3s ease-out;
+}
+
+.whatsapp-theme #send-button {
+    background: var(--whatsapp-primary);
+}
+
+.whatsapp-theme .extra-button {
+    background: var(--whatsapp-primary);
+}
+
+.whatsapp-theme #platform-indicator {
+    background: var(--whatsapp-secondary);
+}
+
+/* WhatsApp Animations */
+@keyframes whatsappSent {
+    0% { transform: translateX(20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes whatsappReceived {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Instagram Theme */
+.instagram-theme {
+    background: linear-gradient(45deg, var(--instagram-light) 0%, #f9e6f0 50%, #f3d9e8 100%);
+}
+
+.instagram-theme #input-container {
+    background: var(--instagram-light);
+    border-top: 1px solid #f3d9e8;
+}
+
+.instagram-theme .message.sent {
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+    color: white;
+    border-radius: 25px 25px 0 25px;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 4px 10px rgba(131, 58, 180, 0.3);
+    position: relative;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: 10px;
+    animation: instagramSent 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.instagram-theme .message.received {
+    background: white;
+    color: #333;
+    border-radius: 25px 25px 25px 0;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 60%;
+    margin-left: 10px;
+    margin-right: auto;
+    animation: instagramReceived 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.instagram-theme .message.sent::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    transform: rotate(90deg);
+}
+
+.instagram-theme #send-button {
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+}
+
+.instagram-theme .extra-button {
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+}
+
+.instagram-theme #platform-indicator {
+    background: linear-gradient(45deg, var(--instagram-primary), var(--instagram-secondary), var(--instagram-tertiary));
+}
+
+/* Instagram Animations */
+@keyframes instagramSent {
+    0% { transform: translateY(20px) scale(0.9); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes instagramReceived {
+    0% { transform: translateY(20px) scale(0.9); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Telegram Theme */
+.telegram-theme {
+    background: linear-gradient(135deg, var(--telegram-light) 0%, #bbdefb 50%, #90caf9 100%);
+}
+
+.telegram-theme #input-container {
+    background: var(--telegram-light);
+    border-top: 1px solid #bbdefb;
+}
+
+.telegram-theme .message.sent {
+    background: var(--telegram-primary);
+    color: white;
+    border-radius: 18px 18px 0 18px;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0, 136, 204, 0.3);
+    position: relative;
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: 10px;
+    animation: telegramSent 0.3s ease-out;
+}
+
+.telegram-theme .message.received {
+    background: white;
+    color: #333;
+    border-radius: 18px 18px 18px 0;
+    padding: 12px 16px;
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 70%;
+    margin-left: 10px;
+    margin-right: auto;
+    animation: telegramReceived 0.3s ease-out;
+}
+
+.telegram-theme .message.sent::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: var(--telegram-primary);
+    border-right: 0;
+    border-top: 0;
+    margin-top: 0;
+    margin-right: -10px;
+}
+
+.telegram-theme #send-button {
+    background: var(--telegram-primary);
+}
+
+.telegram-theme .extra-button {
+    background: var(--telegram-primary);
+}
+
+.telegram-theme #platform-indicator {
+    background: var(--telegram-secondary);
+}
+
+/* Telegram Animations */
+@keyframes telegramSent {
+    0% { transform: translateX(30px) rotate(5deg); opacity: 0; }
+    100% { transform: translateX(0) rotate(0); opacity: 1; }
+}
+
+@keyframes telegramReceived {
+    0% { transform: translateX(-30px) rotate(-5deg); opacity: 0; }
+    100% { transform: translateX(0) rotate(0); opacity: 1; }
+}
+
+/* Message Area */
 #messages {
     flex-grow: 1;
-    padding: 15px;
+    padding: 20px;
     overflow-y: auto;
-    background: var(--messages-background-color);
-    border-radius: 10px;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
+/* Message Bubbles */
 .message {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background: var(--message-background-color);
-    color: var(--message-text-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    max-width: 75%;
+    word-wrap: break-word;
 }
-.message_us {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background: #4f4f4f;
-    color: var(--message-text-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.message.sent {
+    align-self: flex-end;
 }
+
+.message.received {
+    align-self: flex-start;
+}
+
+.message.system {
+    align-self: center;
+    background: rgba(0, 0, 0, 0.05);
+    color: #666;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    max-width: 80%;
+    text-align: center;
+}
+
+.message-time {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
+    display: block;
+    text-align: right;
+}
+
+/* Input Container */
 #input-container {
     display: flex;
-    padding: 10px;
-    background: var(--input-container-background-color);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    gap: 10px;
+}
+
+#input-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 0 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#emoji-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.2s;
+}
+
+#emoji-button:hover {
+    transform: scale(1.1);
+    color: var(--text-color);
 }
 
 #message-input {
     flex-grow: 1;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    background: var(--input-background-color);
+    padding: 15px;
+    border: none;
+    background: transparent;
     color: var(--input-text-color);
-    margin-right: 10px;
-    transition: border-color 0.3s;
+    font-size: 15px;
+    outline: none;
+}
+
+#message-input::placeholder {
+    color: #999;
+}
+
+#extra-options {
+    display: flex;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.extra-button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.extra-button:hover {
+    transform: scale(1.1);
 }
 
 #send-button {
-    padding: 10px;
+    width: 50px;
+    height: 50px;
     border: none;
-    border-radius: 5px;
-    background: var(--send-button-background-color);
-    color: var(--send-button-text-color);
+    border-radius: 50%;
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+#send-button:hover {
+    transform: scale(1.05) rotate(15deg);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Background Pattern */
+#background-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.05;
+}
+
+/* Floating Effects */
+#floating-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 4s ease-in forwards;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.floating-bg-element {
+    position: absolute;
+    font-size: 24px;
+    animation: float 15s linear infinite;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-50px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+}
+
+/* Light & Dark Mode */
 .light-mode {
-    --background-color: #f0f0f0;
-    --text-color: #333333;
+    --background-color: #ffffff;
+    --text-color: #333;
     --header-background-color: #ffffff;
-    --header-color: #444444;
+    --header-color: #444;
     --button-background-color: #007bff;
-    --button-text-color: #ffffff;
-    --border-color: #dddddd;
-    --messages-background-color: #f9f9f9;
-    --message-background-color: #007bff;
-    --message-text-color: #ffffff;
+    --button-text-color: #fff;
+    --messages-background-color: #ffffff;
+    --sent-message-background: #007bff;
+    --sent-message-text: #ffffff;
+    --received-message-background: #eeeeee;
+    --received-message-text: #333;
     --input-container-background-color: #ffffff;
     --input-background-color: #ffffff;
-    --input-text-color: #333333;
+    --input-text-color: #333;
     --send-button-background-color: #007bff;
     --send-button-text-color: #ffffff;
 }
 
 .dark-mode {
-    --background-color: #181818;
-    --text-color: #dddddd;
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
     --header-background-color: #242424;
-    --header-color: #cccccc;
-    --button-background-color: #007bff;
+    --header-color: #e0e0e0;
+    --button-background-color: #4a6fa5;
     --button-text-color: #ffffff;
-    --border-color: #333333;
     --messages-background-color: #1e1e1e;
-    --message-background-color: #007bff;
-    --message-text-color: #ffffff;
+    --sent-message-background: #4a6fa5;
+    --sent-message-text: #ffffff;
+    --received-message-background: #333;
+    --received-message-text: #e0e0e0;
     --input-container-background-color: #242424;
-    --input-background-color: #333333;
-    --input-text-color: #dddddd;
-    --send-button-background-color: #007bff;
+    --input-background-color: #333;
+    --input-text-color: #e0e0e0;
+    --send-button-background-color: #4a6fa5;
     --send-button-text-color: #ffffff;
 }
 
-#message-input:focus {
-    border-color: var(--button-background-color);
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: flex;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-self: flex-start;
+    margin-bottom: 15px;
+    animation: pulse 1.5s infinite;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: #888;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
